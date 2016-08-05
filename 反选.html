@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>反选</title>
+	<meta charset="UTF-8">
+	<style>
+		button{
+			height: 30px;
+			width: 60px;
+		}
+	</style>
+</head>
+<body>
+	<input type="checkbox">soccer</input>
+	<input type="checkbox">basketball</input>
+	<input type="checkbox">ball</input>
+	<input type="checkbox">others</input>
+	<br></br>
+	<button id="choose-all">全选</button>
+	<button id="choose-con">反选</button>
+	<button id="choose-no">不选</button>
+
+
+
+	<script src="jquery-1.12.4.min.js"></script>
+	<script>
+		$(function(){
+			var $aInput = $('input');
+			$('#choose-all').on('click',function(){
+				$aInput.prop('checked','checked');
+			});
+			$('#choose-con').on('click',function(){
+				$aInput.each(function(){//把原生的转换为jq对象
+					// console.log(this.checked);
+					// if (this.checked) {
+					// 	this.checked = false;
+					// }else{
+					// 	this.checked = 'checked';
+					// }
+					this.checked = !this.checked;
+				});
+			});
+			$('#choose-no').on('click',function(){
+				$aInput.prop('checked',false);
+			});
+		});
+	</script>
+</body>
+</html>
