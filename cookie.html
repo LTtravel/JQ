@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>cookies</title>
+	<meta charset="UTF-8">
+</head>
+<body>cookie
+
+
+<script>
+	// document.cookie = 'name=zhangsan';
+	// document.cookie ='age=18';
+	// document.cookie = 'sex=female';
+	// console.log(document.cookie);
+	function addCookie(key,value,expire){
+		var str = key + '=' + value + ';';
+		var date = new Date();
+		date.setTime(date.getTime() + 2 * 24 * 60 * 60 * 1000);
+		str += 'expire=' + date.toUTCString();
+		document.cookie = str;
+	}
+	// addCookie('school','heida',2);
+	console.log(document.cookie);
+</script>
+</body>
+</html>
