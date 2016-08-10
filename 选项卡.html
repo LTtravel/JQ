@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>选项卡jq</title>
+	<meta charset="UTF-8">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#container{
+			background: yellow;
+			height: 200px;
+			width: 300px;
+			margin: 100px auto;
+		}
+		ul{
+			list-style: none;
+		}
+		#tit li{
+			background: #3cc;
+			height: 26px;
+			width: 50px;
+			float: left;
+			margin:  0px 10px 0px 10px;
+			line-height: 26px;
+		}
+		#tit{
+			height: 30px;
+			width: 300px;
+			border-bottom: 3px solid #fff;
+			padding-top: 6px;
+		}
+		#tit-in li{
+			display: none;
+		}
+		#tit-in .first{
+			display: block;
+		}
+		#tit .clk{
+			background: green;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul id="tit">
+			<li class="clk">tit111</li>
+			<li>tit222</li>
+			<li>tit333</li>
+		</ul>
+		<ul id="tit-in">
+			<li class="first">111</li>
+			<li>222</li>
+			<li>333</li>
+		</ul>
+	</div>
+	<script src="..\lib\jquery-1.12.4.js"></script>
+	<script>
+		$('#tit li').on('click',function(){
+			$(this).addClass('clk').siblings().removeClass('clk');
+			var index = $(this).index();
+			//console.log(index);
+			$('#tit-in li:eq(' + index + ')').addClass('first').siblings().removeClass('first');
+
+		});
+	</script>
+</body>
+</html>
