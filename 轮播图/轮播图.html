@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>轮播图1</title>
+	<meta charset="UTF-8">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#container{
+			height: 300px;
+			width: 300px;
+			margin: 100px auto;
+			position: relative;
+		}
+		#imgs img{
+			height: 300px;
+			width: 300px;
+			display: none;
+		}
+		#pic-num li,#pic-direct li{
+			height: 20px;
+			width: 20px;
+			background: #fc6;
+			color: #000;
+			line-height: 20px;
+			text-align: center;
+			float: left;
+			margin-right: 2px;
+		}
+		#pic-num{
+			position: absolute;
+			right: 0;
+			bottom: 5px;
+			cursor: pointer;
+		}
+		#pic-direct{
+			position: absolute;
+			left: 0;
+			bottom: 5px;
+			cursor: pointer;
+		}
+		#imgs #first-pic{
+			display: block;
+		}
+		#pic-num #first-num{/*注意权重值问题*/
+    		background: #f50;
+    		color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="imgs">
+			<img src="imgs/1.jpg" id="first-pic">
+			<img src="imgs/2.jpg">
+			<img src="imgs/3.jpg">
+			<img src="imgs/4.jpg">
+			<img src="imgs/5.jpg">
+		</div>
+		<ul id="pic-num">
+			<li id="first-num">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<ul id="pic-direct">
+			<li id="pre">&lt;</li>
+			<li id="next">&gt;</li>
+		</ul>
+	</div>
+
+
+
+	<script>
+		var oContainer = document.getElementById("container");
+		var aImg = oContainer.getElementsByTagName("img");
+		var oPicNum = document.getElementById("pic-num");
+    	var aLiOne = oPicNum.getElementsByTagName("li");
+    	var oPre = document.getElementById('pre');
+    	var oNext = document.getElementById('next');
+        var nowIndex = 0;//全局变量，存储当前选中的下标
+        function change(idx){
+        	var nowIndex = idx;
+        	for (var j = 0; j < aLiOne.length; j++) {
+        		aLiOne[j].style.background = "#fc6";
+        		aLiOne[j].style.color = "#000";
+        		aImg[j].style.display = "none";
+        	}
+        	aLiOne[nowIndex].style.background = "#f50";
+        	aLiOne[nowIndex].style.color = "#fff";
+        	aImg[nowIndex].style.display = "block";
+        }
+        for (var i = 0; i < aLiOne.length; i++) {
+        	aLiOne[i].index = i;
+        	aLiOne[i].onmouseover = function(){
+    			change(this.index);
+    			nowIndex = this.index;//锁定当前划过的位置，鼠标划出后，按当前状态继续变换
+    		};
+        }
+
+        oPre.onclick = oNext.onclick = function(){
+        	if (this == oPre) {
+        		nowIndex--;
+        		if (nowIndex == -1) {
+        			nowIndex = aLiOne.length - 1;
+        		}	
+        	}else{
+        		nowIndex++;
+        		if (nowIndex == aLiOne.length) {
+        			nowIndex = 0;
+        		}
+        	}
+        	change(nowIndex);
+        };
+    	
+    	var timer = setInterval(function(){
+    		oNext.onclick();
+    	},1000);
+    	oContainer.onmouseover = function(){
+    		clearInterval(timer);
+    	};
+    	oContainer.onmouseout = function(){
+    		clearInterval(timer);
+    		timer = setInterval(function(){
+    			oNext.onclick();
+    		},1000);
+    	};
+    		
+		
+	</script>
+
+
+</body>
+</html>
